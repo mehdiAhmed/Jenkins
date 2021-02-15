@@ -4,11 +4,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                println("Hello Groovy")
+                println("The branch name is", BRANCH_NAME)
                 echo 'Building..'
             }
         }
         stage('Test') {
+            when {
+                expression {
+                    BRANCH_NAME == 'master' || BRANCH_NAME == 'master'
+                }
+            }
             steps {
                 echo 'Testing..'
             }
@@ -17,6 +22,11 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
+        }
+    }
+    post {
+        always {
+            echo 'send email'
         }
     }
 }
