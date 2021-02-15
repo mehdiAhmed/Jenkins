@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                println "Hello from Groovy: ${BRANCH_NAME}""
+                println "Hello from Groovy: ${BRANCH_NAME}"
                 echo 'Building..'
             }
         }
