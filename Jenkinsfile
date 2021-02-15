@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                println("Hello Groovy")
                 echo 'Building..'
             }
         }
