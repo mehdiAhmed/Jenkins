@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                println("The branch name is", BRANCH_NAME)
+                println("The branch name is")
                 echo 'Building..'
             }
         }
