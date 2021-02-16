@@ -16,6 +16,7 @@ pipeline {
             }
             steps {
                 echo 'Testing..'
+                whateverFunction()
             }
         }
         stage('Deploy') {
@@ -29,4 +30,8 @@ pipeline {
             echo 'send email'
         }
     }
+}
+
+void whateverFunction() {
+    println("Hello Word")
 }
