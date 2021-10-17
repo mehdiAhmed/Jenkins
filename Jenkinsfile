@@ -1,8 +1,8 @@
 pipeline {
-    agent none
 
     stages {
         stage('Build') {
+            agent any
             steps {
                 println "Hello from Groovy: ${BRANCH_NAME}"
                 echo 'Building..'
@@ -26,6 +26,7 @@ pipeline {
             }
         }
         stage('Deploy') {
+            agent any
             steps {
                 echo 'Deploying....'
             }
