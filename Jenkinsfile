@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
         stage('Build') {
@@ -14,8 +14,14 @@ pipeline {
                     BRANCH_NAME == 'master' || BRANCH_NAME == 'dev'
                 }
             }
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                }
+            }
             steps {
                 echo 'Testing..'
+                sh "aws --version"
                 whateverFunction()
             }
         }
