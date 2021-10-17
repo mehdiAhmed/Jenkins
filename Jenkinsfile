@@ -14,11 +14,12 @@ pipeline {
                     BRANCH_NAME == 'master' || BRANCH_NAME == 'dev'
                 }
             }
-            agent {
-                dockerfile {
-                    filename 'Dockerfile'
-                }
-            }
+            //agent {
+             //   dockerfile {
+             //       filename 'Dockerfile'
+            //    }
+            //}
+            agent { dockerfile true }
             steps {
                 echo 'Testing..'
                 sh "aws --version"
