@@ -1,8 +1,8 @@
 pipeline {
-    agent any
-
+    agent none
     stages {
         stage('Build') {
+            agent any
             steps {
                 println "Hello from Groovy: ${BRANCH_NAME}"
                 echo 'Building..'
@@ -14,12 +14,20 @@ pipeline {
                     BRANCH_NAME == 'master' || BRANCH_NAME == 'dev'
                 }
             }
+            //agent {
+             //   dockerfile {
+             //       filename 'Dockerfile'
+            //    }
+            //}
+            agent { dockerfile true }
             steps {
                 echo 'Testing..'
+                sh "aws --version"
                 whateverFunction()
             }
         }
         stage('Deploy') {
+            agent any
             steps {
                 echo 'Deploying....'
             }
