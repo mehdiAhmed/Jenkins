@@ -4,7 +4,6 @@ pipeline {
         stage('Build') {
             agent any
             steps {
-                println "Hello from Groovy: ${BRANCH_NAME}"
                 echo 'Building..'
             }
         }
