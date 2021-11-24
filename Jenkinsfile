@@ -2,9 +2,10 @@ pipeline {
     agent none
     stages {
         stage('Build') {
-            agent any
+            agent {label: toto}
             steps {
                 echo 'Building..'
+                sleep time: 10, unit: 'MINUTES'
             }
         }
     }
