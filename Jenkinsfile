@@ -5,7 +5,7 @@ pipeline {
             agent {label 'toto'}
             steps {
                 echo 'Building..'
-                sleep time: 10, unit: 'MINUTES'
+                sleep time: 1, unit: 'MINUTES'
             }
         }
     }
