@@ -1,4 +1,5 @@
-    agent { 
+pipeline {    
+agent { 
         node {
             label 'cake-netframework'
             customWorkspace getWindowsPipelineDirectory()
