@@ -1,5 +1,5 @@
-pipeline {    
-agent { 
+pipeline {
+    agent { 
         node {
             label 'cake-netframework'
             customWorkspace getWindowsPipelineDirectory()
@@ -19,7 +19,6 @@ agent {
         stage('Run Cake build') {
             steps {
                 checkout scm
-                echo "RUN ..."
             }
             post {
                 always {
@@ -32,10 +31,6 @@ agent {
                     echo "======== Executed when stage failed ========"
                 }
                 cleanup {
-                    cleanWs(deleteDirs:true)
-                    dir("${env.WORKSPACE}@tmp") {
-                      deleteDir()
-                    }
                 }
             }
         }
