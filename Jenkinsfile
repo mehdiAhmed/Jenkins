@@ -1,45 +1,53 @@
-pipeline {
-    agent none
+    agent { 
+        node {
+            label 'cake-netframework'
+            customWorkspace getWindowsPipelineDirectory()
+        }
+    }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+        disableResume()
+        timeout(time: 1, unit: 'HOURS')
+        skipDefaultCheckout()
+        skipStagesAfterUnstable()
+    }
+
     stages {
-        stage('Build') {
-            agent any
+        stage('Run Cake build') {
             steps {
-                println "Hello from Groovy: ${BRANCH_NAME}"
-                echo 'Building..'
+                checkout scm
+                echo "RUN ..."
             }
-        }
-        stage('Test') {
-            when {
-                expression {
-                    BRANCH_NAME == 'master' || BRANCH_NAME == 'dev'
+            post {
+                always {
+                    echo "======== Always executed ========"
                 }
-            }
-            //agent {
-             //   dockerfile {
-             //       filename 'Dockerfile'
-            //    }
-            //}
-            agent { dockerfile true }
-            steps {
-                echo 'Testing..'
-                sh "aws --version"
-                whateverFunction()
-            }
-        }
-        stage('Deploy') {
-            agent any
-            steps {
-                echo 'Deploying....'
+                success {
+                    echo "======== Executed when stage succeeded ========"
+                }
+                failure {
+                    echo "======== Executed when stage failed ========"
+                }
+                cleanup {
+                    cleanWs(deleteDirs:true)
+                    dir("${env.WORKSPACE}@tmp") {
+                      deleteDir()
+                    }
+                }
             }
         }
     }
     post {
         always {
-            echo 'send email'
+            echo "======== Always executed ========"
+        }
+        success {
+            echo "======== Executed when pipeline succeeded ========"
+        }
+        failure {
+            echo "======== Executed when pipeline failed ========"
         }
     }
-}
-
-void whateverFunction() {
-    println("Hello Word")
 }
