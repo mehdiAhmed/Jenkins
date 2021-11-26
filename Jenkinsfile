@@ -29,8 +29,6 @@ pipeline {
                 failure {
                     echo "======== Executed when stage failed ========"
                 }
-                cleanup {
-                }
             }
         }
     }
